@@ -9,9 +9,9 @@ class FuncionarioController extends Controller
 {
     public function index(Request $request)
     {
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
+        // if (Auth::guest()) {
+        //     return redirect('/login');
+        // }
 
         // return "usuário não autenticado";
 
