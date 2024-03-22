@@ -9,10 +9,16 @@ class FuncionarioController extends Controller
 {
     public function index(Request $request)
     {
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+
+        // return "usuário não autenticado";
+
         // $usuario = Auth::user();
         // echo Auth::id();
 
-        $usuarioLogado = $request->user();
+        //$usuarioLogado = $request->user();
         // echo $usuarioLogado->email;
 
         return view('funcionarios.index');
