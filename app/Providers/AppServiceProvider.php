@@ -22,8 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('acessar_funcionarios', function(User $user) {
-            if ($user->is_admin == true) {
+        Gate::define('acessar_funcionarios', function(User $user, string $departamento = 'outros') {
+            if ($user->is_admin == true || $departamento === 'RH') {
                 return Response::allow();
             }
 
