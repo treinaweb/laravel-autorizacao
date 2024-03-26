@@ -17,11 +17,13 @@
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('funcionarios.index')" :active="request()->routeIs('funcionarios')">
-                        Funcionários
-                    </x-nav-link>
-                </div>
+                @can('acessar_funcionarios')
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('funcionarios.index')" :active="request()->routeIs('funcionarios')">
+                            Funcionários
+                        </x-nav-link>
+                    </div>
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->
@@ -78,11 +80,13 @@
             </x-responsive-nav-link>
         </div>
 
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('funcionarios.index')" :active="request()->routeIs('funcionarios')">
-                Funcionários
-            </x-responsive-nav-link>
-        </div>
+        @can('acessar_funcionarios')
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('funcionarios.index')" :active="request()->routeIs('funcionarios')">
+                    Funcionários
+                </x-responsive-nav-link>
+            </div>
+        @endcan
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
