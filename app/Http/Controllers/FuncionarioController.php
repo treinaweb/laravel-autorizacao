@@ -4,22 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class FuncionarioController extends Controller
 {
     public function index(Request $request)
     {
-        // if (Auth::guest()) {
-        //     return redirect('/login');
-        // }
-
-        // return "usuário não autenticado";
-
-        // $usuario = Auth::user();
-        // echo Auth::id();
-
-        //$usuarioLogado = $request->user();
-        // echo $usuarioLogado->email;
+        if (! Gate::allows('acessar_funcionarios')) {
+            abort(403, 'Você não tem acesso a esse recurso!');
+        }
 
         return view('funcionarios.index');
     }
