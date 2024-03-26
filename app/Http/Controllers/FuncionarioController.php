@@ -10,8 +10,10 @@ class FuncionarioController extends Controller
 {
     public function index(Request $request)
     {
-        if (! Gate::allows('acessar_funcionarios')) {
-            abort(403, 'Você não tem acesso a esse recurso!');
+        $resposta = Gate::inspect('acessar_funcionarios');
+
+        if (! $resposta->allowed()) {
+            abort(403, $resposta->message());
         }
 
         return view('funcionarios.index');
