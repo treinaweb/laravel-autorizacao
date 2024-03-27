@@ -21,6 +21,6 @@ Route::middleware('auth')->group(function () {
 Route::get(
     '/funcionarios', 
     [FuncionarioController::class, 'index']
-)->middleware('auth')->name('funcionarios.index');
+)->middleware(['auth', 'can:acessar_funcionarios'])->name('funcionarios.index');
 
 require __DIR__.'/auth.php';
