@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use App\Http\Requests\ClienteRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Gate;
 
 class ClienteController extends Controller
 {
@@ -32,6 +33,8 @@ class ClienteController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create_cliente');
+
         return view('clientes.create');
     }
 
@@ -42,6 +45,8 @@ class ClienteController extends Controller
      */
     public function store(ClienteRequest $request)
     {
+        Gate::authorize('create_cliente');
+
         Client::create($request->all());
 
         return redirect()
@@ -80,6 +85,8 @@ class ClienteController extends Controller
      */
     public function destroy(Client $cliente)
     {
+        Gate::authorize('destroy_cliente', $cliente);
+
         $cliente->delete();
 
         return redirect()

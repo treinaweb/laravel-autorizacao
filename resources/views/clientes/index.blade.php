@@ -8,12 +8,15 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="flex justify-end my-3">
-                    <a
-                        class="bg-green-500 border rounded-md p-1 px-3 text-white"
-                        href="{{ route('clientes.create') }}"
-                    >Criar cliente</a>
-                </div>
+
+                @can('create_cliente')
+                    <div class="flex justify-end my-3">
+                        <a
+                            class="bg-green-500 border rounded-md p-1 px-3 text-white"
+                            href="{{ route('clientes.create') }}"
+                        >Criar cliente</a>
+                    </div>
+                @endcan
 
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -51,16 +54,18 @@
                                             class="bg-blue-500 border rounded-md p-1 px-3 text-white"
                                         >Editar</a>
 
-                                        <form method="POST" action="{{ route('clientes.destroy', $cliente->id) }}" class="inline-block">
-                                            @method('delete')
-                                            @csrf
+                                        @can('destroy_cliente', $cliente)
+                                            <form method="POST" action="{{ route('clientes.destroy', $cliente->id) }}" class="inline-block">
+                                                @method('delete')
+                                                @csrf
 
-                                            <button
-                                                class="bg-red-500 border rounded-md p-1 px-3 text-white"
-                                                onclick="return confirm('Deseja realmente apagar esse cliente?')"
-                                            >Excluir</button>
+                                                <button
+                                                    class="bg-red-500 border rounded-md p-1 px-3 text-white"
+                                                    onclick="return confirm('Deseja realmente apagar esse cliente?')"
+                                                >Excluir</button>
 
-                                        </form>
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty
