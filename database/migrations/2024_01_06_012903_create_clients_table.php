@@ -18,6 +18,12 @@ return new class extends Migration
             $table->string('endereco', 200);
             $table->text('descricao');
 
+            $table->unsignedBigInteger('owner_id')->nullable();
+            $table->foreign('owner_id')
+                ->references('id')
+                ->on('users')
+                ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
