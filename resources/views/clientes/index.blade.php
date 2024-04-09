@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
 
-                @can('create_cliente')
+                @can('create_cliente', \App\Models\Client::class)
                     <div class="flex justify-end my-3">
                         <a
                             class="bg-green-500 border rounded-md p-1 px-3 text-white"

@@ -33,7 +33,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        Gate::authorize('create_cliente');
+        Gate::authorize('create_cliente', Client::class);
 
         return view('clientes.create');
     }
@@ -45,7 +45,7 @@ class ClienteController extends Controller
      */
     public function store(ClienteRequest $request)
     {
-        Gate::authorize('create_cliente');
+        Gate::authorize('create_cliente', Client::class);
 
         Client::create($request->all());
 

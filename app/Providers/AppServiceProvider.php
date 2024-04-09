@@ -30,22 +30,5 @@ class AppServiceProvider extends ServiceProvider
 
             return Response::deny('Você não tem acesso a esse recurso!');
         });
-
-        Gate::define('create_cliente', function($user) {
-            if ($user->is_admin == true) {
-                return Response::allow();
-            }
-
-            return Response::deny('Você não tem acesso a esse recurso!');
-        });
-
-        Gate::define('destroy_cliente', function(User $user, Client $cliente) {
-            if ($cliente->owner_id == $user->id) {
-                return Response::allow();
-            }
-
-            return Response::deny('Você não tem acesso a esse recurso!');
-        });
-
     }
 }
