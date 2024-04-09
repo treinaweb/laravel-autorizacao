@@ -9,28 +9,46 @@ use Illuminate\Auth\Access\Response;
 class ClientPolicy
 {
     /**
-     * Create a new policy instance.
+     * Determine whether the user can view any models.
      */
-    public function __construct()
+    public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
-    public function create_cliente(User $user)
+    /**
+     * Determine whether the user can create models.
+     */
+    public function create(User $user): bool
     {
         if ($user->is_admin == true) {
-            return Response::allow();
+            return true;
         }
 
-        return Response::deny('Você não tem acesso a esse recurso!');
+        return false;
     }
 
-    public function destroy_cliente(User $user, Client $cliente)
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user, Client $client): bool
     {
-        if ($cliente->owner_id == $user->id) {
-            return Response::allow();
+        if ($client->owner_id == $user->id) {
+            return true;
         }
 
-        return Response::deny('Você não tem acesso a esse recurso!');
+        return false;
+    }
+
+    /**
+     * Determine whether the user can delete the model.
+     */
+    public function delete(User $user, Client $client): bool
+    {
+        if ($client->owner_id == $user->id) {
+            return true;
+        }
+
+        return false;
     }
 }

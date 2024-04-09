@@ -3,15 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use Illuminate\Routing\Controller;
 use Illuminate\Routing\Redirector;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\ClienteRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ClienteController extends Controller
 {
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Client::class, 'cliente');
+    }
+
     /**
      * Lista os clientes do banco de dados
      * 
@@ -33,8 +42,6 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        Gate::authorize('create_cliente', Client::class);
-
         return view('clientes.create');
     }
 
@@ -45,8 +52,6 @@ class ClienteController extends Controller
      */
     public function store(ClienteRequest $request)
     {
-        Gate::authorize('create_cliente', Client::class);
-
         Client::create($request->all());
 
         return redirect()
@@ -85,8 +90,6 @@ class ClienteController extends Controller
      */
     public function destroy(Client $cliente)
     {
-        Gate::authorize('destroy_cliente', $cliente);
-
         $cliente->delete();
 
         return redirect()

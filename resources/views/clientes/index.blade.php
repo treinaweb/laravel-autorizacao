@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
 
-                @can('create_cliente', \App\Models\Client::class)
+                @can('create', \App\Models\Client::class)
                     <div class="flex justify-end my-3">
                         <a
                             class="bg-green-500 border rounded-md p-1 px-3 text-white"
@@ -49,12 +49,14 @@
                                         {{ $cliente->descricao }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a
-                                            href="{{ route('clientes.edit', $cliente->id) }}"
-                                            class="bg-blue-500 border rounded-md p-1 px-3 text-white"
-                                        >Editar</a>
+                                        @can('update', $cliente)
+                                            <a
+                                                href="{{ route('clientes.edit', $cliente->id) }}"
+                                                class="bg-blue-500 border rounded-md p-1 px-3 text-white"
+                                            >Editar</a>
+                                        @endcan
 
-                                        @can('destroy_cliente', $cliente)
+                                        @can('delete', $cliente)
                                             <form method="POST" action="{{ route('clientes.destroy', $cliente->id) }}" class="inline-block">
                                                 @method('delete')
                                                 @csrf
